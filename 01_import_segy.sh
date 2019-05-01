@@ -22,7 +22,7 @@ set -x
 
 path=segy/          #paths with segy data
 pathsu=su/
-inputfilename=Norte	# raw tape device being read from
+inputfilename=sigsbee2a_nfs_10shots	# raw tape device being read from
 
 ######### USER AREA  #############
 

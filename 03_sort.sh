@@ -14,13 +14,13 @@ set -x
 ##	4)
 ##                                 
 ##  5)
-## 
+## additional info: selfdocs of susort
 
 ######### USER AREA  #############
 
 path=segy/          #paths with segy data
 pathsu=su/
-inputfilename=Norte_outfile	# raw tape device being read from
+inputfilename=sigsbee2a_nfs_10shots_outfile	# raw tape device being read from
 
 ######### USER AREA  #############
 
@@ -32,4 +32,4 @@ suximage < $indata perc=99 &
 
 surange < $indata
 
-susort < $indata tracl ep | suximage perc=99 &
+susort < $indata cdp offset | suximage perc=99 &
