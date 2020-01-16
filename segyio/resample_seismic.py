@@ -36,7 +36,7 @@ with segyio.open(filename,ignore_geometry=True) as segyfile:
         segyfileout.text[0] = segyfile.text[0]
         # Copy binary header
         segyfileout.bin     = segyfile.bin
-        # # Copy trace header
+        # Copy trace header
         segyfileout.header = segyfile.header        
         # Resampling traces
         for ix,trace in enumerate(segyfile.trace):
