@@ -20,16 +20,11 @@ def readSEGY(path):
     with segyio.open(path, "r",ignore_geometry=True) as segyfile:
         # Memory map file for faster reading (especially if file is big...)
         segyfile.mmap()
-        print("Reading ", path)
-
-        # Get basic attributes
-        n_traces    = segyfile.tracecount
-        sample_rate = segyio.tools.dt(segyfile) / 1000
-        n_samples   = segyfile.samples.size
-        twt         = segyfile.samples
+        print("Reading ", path)       
 
         # Readind data
         seismic     = segyfile.trace.raw[:]  # Get all data into memory (could cause on big files)
+        n_traces    = segyfile.tracecount
 
         # Load headers
         bin_headers   = segyfile.bin    
@@ -41,12 +36,13 @@ def readSEGY(path):
 
 def readSEGYbasicattributes(path):
     with segyio.open(path, "r",ignore_geometry=True) as segyfile:
+        # Get basic attributes
         n_traces = segyfile.tracecount
         n_samples = segyfile.samples.size
         sample_rate = segyio.tools.dt(segyfile)/1000
-        twt = segyfile.samples
+        samples = segyfile.samples
 
-    return n_traces, n_samples, sample_rate, twt
+    return n_traces, n_samples, sample_rate, samples
 
 
 def parse_trace_headers(segyfile, n_traces):
@@ -85,7 +81,7 @@ def parse_text_header(segyfile):
     return clean_header
 
 def print_headers(seismic,bin_headers,text_headers,trace_headers, \
-                  n_traces, n_samples, sample_rate, twt):
+                  n_traces, n_samples, sample_rate, samples):
         
     print(' \n \n \n Binary Header')
     for line in bin_headers:
@@ -100,15 +96,40 @@ def print_headers(seismic,bin_headers,text_headers,trace_headers, \
         print('%40s: %8d - %8d' % (key, trace_headers[key][1] ,trace_headers[key][n_traces] ))
     
     print(' \n \n \n Basic attributes')
-    print('%40s %8d'    % ('Number of traces  = ',n_traces ))
-    print('%40s %8d'    % ('Number of samples = ',n_samples ))
-    print('%40s %8d ms' % ('Sample rate = '      ,sample_rate ))
-    print('%40s %8d ms' % ('start time = '       ,twt[0] ))
-    print('%40s %8d ms' % ('end time = '         ,twt[-1]))
+    print('%40s %8d'    % ('n_traces    = ',n_traces )   )
+    print('%40s %8d'    % ('n_samples   = ',n_samples )  )
+    print('%40s %8d ms' % ('sample_rate = ',sample_rate ))
+    print('%40s %8d ms' % ('samples[ 0] = ',samples[0] )     )
+    print('%40s %8d ms' % ('samples[-1] = ',samples[-1])     )
+
+def plot_segy(file):
+    # Load data
+    with segyio.open(file, ignore_geometry=True) as f:
+        # Get basic attributes
+        n_traces = f.tracecount
+        sample_rate = segyio.tools.dt(f) / 1000
+        n_samples = f.samples.size
+        twt = f.samples
+        data = f.trace.raw[:]
+    # Plot    
+    vm = np.percentile(data, 95)
+    pl.figure(figsize=(18, 8))    
+    extent = [1, n_traces, twt[-1], twt[0]]  # define extent
+    pl.imshow(data.T, cmap="RdBu", vmin=-vm, vmax=vm, aspect='auto', extent=extent)
+    pl.xlabel('CDP number')
+    pl.ylabel('TWT [ms]')
+    pl.title(f'{file}')    
 
 if __name__ =="__main__":
 
+    
+     
     filename="../segy/set2_Lines2D_inlines/line12.sgy"
+    
+    plot_segy(filename)
+
+    filename="../segy/set2_Lines2D_inlines/line12_resample.sgy"
+    plot_segy(filename)
 
     # get basic attributes
     n_traces, n_samples, sample_rate, twt = readSEGYbasicattributes(filename)
@@ -120,20 +141,4 @@ if __name__ =="__main__":
     print_headers(seismic,bin_headers,text_headers,trace_headers, \
                   n_traces, n_samples, sample_rate, twt)
 
-    #QC trace headers
-    key1 = 'CDP_X'
-    key2 = 'CDP_Y'
-
-    pl.figure(figsize=(18,6))
-    pl.plot(trace_headers[key1],trace_headers[key2],'r*')
-
-    pl.title('Quality control:  ' + key1 + ' vs ' + key2)
-    pl.grid()
-    pl.show()
-
-    #Plot seismic
-    vm = np.percentile(seismic[:,:], 95)
-    pl.figure(figsize=(18,6))
-    pl.imshow(seismic.T, cmap="gray", vmin=-vm, vmax=vm, aspect='auto')
-    pl.colorbar()
     pl.show()
