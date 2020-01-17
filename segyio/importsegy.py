@@ -124,12 +124,12 @@ if __name__ =="__main__":
 
     
      
-    filename="../segy/set2_Lines2D_inlines/line12.sgy"
+    filename="../segy/Newsegy.sgy"
     
     plot_segy(filename)
 
-    filename="../segy/set2_Lines2D_inlines/line12_resample.sgy"
-    plot_segy(filename)
+    # filename="../segy/set2_Lines2D_inlines/line12_resample.sgy"
+    # plot_segy(filename)
 
     # get basic attributes
     n_traces, n_samples, sample_rate, twt = readSEGYbasicattributes(filename)

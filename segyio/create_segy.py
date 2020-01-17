@@ -25,13 +25,12 @@ for i in range(0,n_traces):
 segyio.tools.from_array2D(path,array2d)
 
 with segyio.open(path,'r+',ignore_geometry=True) as f:
-# with segyio.open(path, spec) as f:
-
+    # Update bin header
     f.bin.update({segyio.BinField.Interval : sample_rate*1000})                
     f.bin.update({segyio.BinField.Samples  : n_samples})
     f.bin.update({segyio.BinField.Traces   : n_traces})
 
-# set fixed value in all headers
+    # set fixed value in all trace headers
     for x in f.header[:]:
         x.update({segyio.TraceField.TRACE_SAMPLE_COUNT    : f.samples.size })
         x.update({segyio.TraceField.TRACE_SAMPLE_INTERVAL : sample_rate*1000 })
