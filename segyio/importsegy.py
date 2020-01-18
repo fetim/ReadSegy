@@ -128,7 +128,7 @@ if __name__ =="__main__":
     
     plot_segy(filename)
 
-    # filename="../segy/set2_Lines2D_inlines/line12_resample.sgy"
+    # filename="../segy/set1_Lines2D_xlines/line1.sgy"
     # plot_segy(filename)
 
     # get basic attributes
