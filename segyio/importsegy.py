@@ -92,6 +92,8 @@ def print_headers(seismic,bin_headers,text_headers,trace_headers, \
         print(line, text_headers[line])
 
     print(' \n \n \n Trace Header keys')
+    print('%40s: %8s - %8s \n' % ('Trace','first','last'))
+
     for key in trace_headers.columns:
         print('%40s: %8d - %8d' % (key, trace_headers[key][1] ,trace_headers[key][n_traces] ))
     
@@ -121,9 +123,7 @@ def plot_segy(file):
     pl.title(f'{file}')    
 
 if __name__ =="__main__":
-
-    
-     
+         
     filename="../segy/Newsegy.sgy"
     
     plot_segy(filename)
