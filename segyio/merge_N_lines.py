@@ -12,7 +12,7 @@ seismic       = []
 
 folder1="../segy/set1_Lines2D_xlines/"
 folder2="../segy/set2_Lines2D_inlines/"
-for idx, i in enumerate(range(1,13)):
+for idx, i in enumerate(range(1,25)):
     if i < 12:
         filename=folder1+"line"+str(i)+".sgy"
         print(filename, 'Importing segy ', idx)
@@ -39,18 +39,18 @@ n_traces = 0
 for section in seismic:
     n_traces += len(section)
 
-seismic_merge = np.zeros([n_traces,n_samples])
-il_merge      = np.squeeze(np.zeros([n_traces,1])).astype('int32')
-xl_merge      = np.squeeze(np.zeros([n_traces,1])).astype('int32')
-cdpx_merge    = np.squeeze(np.zeros([n_traces,1])).astype('int32')
-cdpy_merge    = np.squeeze(np.zeros([n_traces,1])).astype('int32')
+seismic_merge = np.squeeze(np.zeros([1,n_samples])).astype('float32')
+il_merge      = np.squeeze(np.zeros([1,n_samples])).astype('int32')
+xl_merge      = np.squeeze(np.zeros([1,n_samples])).astype('int32')
+cdpx_merge    = np.squeeze(np.zeros([1,n_samples])).astype('int32')
+cdpy_merge    = np.squeeze(np.zeros([1,n_samples])).astype('int32')
 
-for lines in range(24):    
-    seismic_merge    = np.concatenate((seismic_merge,seismic[idx]),axis=0)
-    il_merge         = np.concatenate((il_merge,il[idx]),axis=0)
-    xl_merge         = np.concatenate((xl_merge,xl[idx]),axis=0)
-    cdpx_merge       = np.concatenate((cdpx_merge,cdpx[idx]),axis=0)
-    cdpy_merge       = np.concatenate((cdpy_merge,cdpy[idx]),axis=0)
+for lines in range(13):    
+    seismic_merge    = np.concatenate((seismic))
+    il_merge         = np.concatenate((il))
+    xl_merge         = np.concatenate((xl))
+    cdpx_merge       = np.concatenate((cdpx))
+    cdpy_merge       = np.concatenate((cdpy))
 
 path            = '../segy/Newsegy.sgy'
 # Create a segy from a 2D matrix
