@@ -3,13 +3,27 @@ import segyio
 import matplotlib.pyplot as pl
 import numpy as np
 
+def savebinaryfile(dim1,dim2,data,filename):
+      """
+      savebinaryfile - Functions that read a binary file.
+      Usage
+      Input:
+      dim1     = Number of sample of 1st Dimension
+      dim2     = Number of sample of 2nd Dimension
+      data     = 2D array
+      filename = path of binary file     
+      """      
+      import numpy as np
+
+      outdata = data.astype('float32')
+      outdata.T.reshape(dim1*dim2).tofile(filename)
 
 folder   = "/home/felipe/Desktop/Dados_Buzios/"
 filename = "R0276_BS_500_FRANCO_FLORIM_PSDM_VEL.3D.PSDM"
 
 SEGY     = segyio.open(folder+filename+".sgy",ignore_geometry=True)
 
-# explore traceheader
+# get he
 headers = segyio.tracefield.keys
 
 for k,v in headers.items():    
@@ -27,17 +41,12 @@ select_IL_index = int(np.abs((select_IL - SEGY.attributes(223)[0]))/inc_IL)
 
 select_XL = 3824
 inc_XL = 4
-N_XL = int(np.abs((SEGY.attributes(225)[len(SEGY.tracecount-1] - SEGY.attributes(225)[0]))/inc_XL) + 1
+N_XL = int(np.abs((SEGY.attributes(225)[SEGY.tracecount-1] - SEGY.attributes(225)[0]))/inc_XL) + 1
 N_xline = 863
 
 select_XL_index = int(np.abs((select_XL - SEGY.attributes(225)[0]))/inc_XL)
 
-#
-# N_traces = 1037326
-
-# #Xline 3824 - 863*582 - 863*583
-
-# # inline
+# inline
 velocitymodel_IL = np.zeros([SEGY.samples.size,N_XL])
 
 velocitymodel_IL = SEGY.trace.raw[ N_XL*select_IL_index : N_XL*(select_IL_index+1)].T
@@ -52,4 +61,10 @@ for i in range(0,N_IL):
 
 pl.imshow(velocitymodel_XL)
 pl.show()
+
+filename = "inline_"+str(select_IL)+"_buzios_1001z_1402x_dz10m_dx25m"
+savebinaryfile(velocitymodel_XL.shape[0],velocitymodel_IL.shape[1],velocitymodel_IL,folder+filename+".bin")
+
+filename = "xline_"+str(select_XL)+"_buzios_1001z_863x_dz10m_dx50m"
+savebinaryfile(velocitymodel_XL.shape[0],velocitymodel_XL.shape[1],velocitymodel_XL,folder+filename+".bin")
 
