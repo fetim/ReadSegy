@@ -1,7 +1,7 @@
 #! /bin/sh
 # Examples of suwind and segywrite
 # Author: Felipe Timóteo
-set -x
+
 ##
 ## processing steps:
 ##	1) read seismic unix data and show input data (optional)

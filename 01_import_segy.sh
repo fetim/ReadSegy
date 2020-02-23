@@ -2,7 +2,7 @@
 # Examples of segyread and segywrite
 # Author    : John Stockwell
 # Modify by : Felipe Timoteo
-set -x
+
 #####
 ##
 ## processing steps:

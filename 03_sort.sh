@@ -1,7 +1,7 @@
 #! /bin/sh
 # Examples of sort
 # Author    : Felipe Timoteo
-set -x
+
 #####
 ##
 ## processing steps:
