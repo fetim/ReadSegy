@@ -24,4 +24,14 @@ DEBUG=0
 
 }
 
+# Check for the shell scripts dependencies
+IMPORT_SCRIPT="01_import_segy.sh"
+SELECT_SHOTS_SCRIPT="02_selectshots_savesegy.sh"
+SORT_SCRIPT="03_sort.sh"
+[ -f "$IMPORT_SCRIPT" -a -f "$SELECT_SHOTS_SCRIPT" -a -f "$SORT_SCRIPT" ] || {
+	echo "Some program dependencies not found in this repository!"
+	exit 1
+}
+
+
 
