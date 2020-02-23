@@ -44,5 +44,13 @@ SORT_SCRIPT="03_sort.sh"
 	exit 1
 }
 
+# Help mesage
+PROGRAM="$(basename $0) [ -h | -v | -i | -s | -o ]"
+DESCRIPTION="Script to manipulate segy files using seismic unix"
+PARAMETERS="-h --help Display help and exit
+-v --version Display program version and exit
+-i --import Import segy data
+-s --select Select Shots
+-o --sort Trace Sorting"
 
 
