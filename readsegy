@@ -13,3 +13,15 @@
 # Email: rodolfo_profissional@hotmail.com
 # 
 # License: GPL-3.0 <https://www.gnu.org/licenses/gpl-3.0.txt>.
+
+# Debug option (Only for programers)
+# Use DEBUG=1 to run program in debug mode
+DEBUG=0
+
+[ "$DEBUG" -eq "1" ] && {
+
+	set -xv
+
+}
+
+
