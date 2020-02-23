@@ -1,0 +1,15 @@
+#!/bin/bash
+#
+# readsegy (Shell Script)
+# 
+# Purpose: User interface to call shell script readsegy programs.
+# 
+# Site: http://www.dirackslounge.online
+# 
+# Version 1.0
+# 
+# Programer: Rodolfo Dirack 23/02/2020
+# 
+# Email: rodolfo_profissional@hotmail.com
+# 
+# License: GPL-3.0 <https://www.gnu.org/licenses/gpl-3.0.txt>.
