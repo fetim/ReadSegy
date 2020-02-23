@@ -53,4 +53,43 @@ PARAMETERS="-h --help Display help and exit
 -s --select Select Shots
 -o --sort Trace Sorting"
 
+case "$1" in
 
+	-h | --help)
+
+		clear
+		echo -e "\n$PROGRAM\n"
+		echo -e "$DESCRIPTION\n"
+		echo -e "$PARAMETERS\n"
+		exit 0
+		;;
+
+	-v | --version)
+		
+		echo "$(basename "$0") $VERSION"
+		exit 0
+		;;
+
+	-i | --import) # Import segy data
+
+			./01_import_segy.sh
+		;;
+		
+	-s | --select) # Select Shots
+
+			./02_selectshots_savesegy.sh
+		;;
+
+	-o | --sort) # Trace Sorting
+
+			./03_sort.sh
+		;;
+
+	*)
+
+		echo -e "Option $1 is unknown!\nType $0 -h to get help."
+		exit 1
+		;;
+esac
+
+exit 0
