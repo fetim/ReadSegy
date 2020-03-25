@@ -120,7 +120,7 @@ def plot_segy(file):
     pl.imshow(data.T, cmap="RdBu", vmin=-vm, vmax=vm, aspect='auto', extent=extent)
     pl.xlabel('CDP number')
     pl.ylabel('TWT [ms]')
-    pl.title(f'{file}')    
+    pl.title(f'{file}')  
 
 def updateSEGYbinaryheader(SEGY):
     # Binary Header according ANP
@@ -199,6 +199,21 @@ def updateSEGYbinaryheader(SEGY):
     # 3507-3600 Unassigned
 
     return SEGY
+
+def savebinaryfile(dim1,dim2,data,filename):
+    """
+    savebinaryfile - Functions that read a binary file.
+    Usage
+    Input:
+    dim1     = Number of sample of 1st Dimension
+    dim2     = Number of sample of 2nd Dimension
+    data     = 2D array
+    filename = path of binary file     
+    """      
+    import numpy as np
+
+    outdata = data.astype('float32')
+    outdata.T.reshape(dim1*dim2).tofile(filename)
 
 if __name__ =="__main__":
          

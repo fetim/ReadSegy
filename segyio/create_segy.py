@@ -1,13 +1,11 @@
 import segyio
-import pandas as pd
 import matplotlib.pyplot as pl
 import numpy as np
-import scipy.signal
 
-from importsegy import readSEGYbasicattributes
-from importsegy import readSEGY
-from importsegy import print_headers
-from importsegy import plot_segy
+from segyio_tools import readSEGYbasicattributes
+from segyio_tools import readSEGY
+from segyio_tools import print_headers
+from segyio_tools import plot_segy
 
 path = '../segy/Newsegy.sgy'
 

@@ -2,24 +2,9 @@
 import segyio
 import matplotlib.pyplot as pl
 import numpy as np
-
-def savebinaryfile(dim1,dim2,data,filename):
-      """
-      savebinaryfile - Functions that read a binary file.
-      Usage
-      Input:
-      dim1     = Number of sample of 1st Dimension
-      dim2     = Number of sample of 2nd Dimension
-      data     = 2D array
-      filename = path of binary file     
-      """      
-      import numpy as np
-
-      outdata = data.astype('float32')
-      outdata.T.reshape(dim1*dim2).tofile(filename)
-
-folder   = "/home/felipe/Desktop/Dados_Buzios/"
-filename = "R0276_BS_500_FRANCO_FLORIM_PSDM_VEL.3D.PSDM"
+from segyio_tools import savebinaryfile
+folder   = "../segy/"
+filename = "0212-0019_Amplitudes"
 
 SEGY     = segyio.open(folder+filename+".sgy",ignore_geometry=True)
 
